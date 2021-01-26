@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Алексей Бородачев](https://up.htmlacademy.ru/javascript/22/user/1426475).
-* Наставник: `Неизвестно`.
+* Наставник:[Дмитрий Рябинин](https://htmlacademy.ru/profile/haschish).
 
 ---
 
