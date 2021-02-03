@@ -3,33 +3,37 @@
 //Получение случайного целого числа в заданном интервале, включительно
 //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 
-//Не понял, что надо сделать вот по этому условию - Учтите, что диапазон может быть только положительный, включая ноль?
-//Добавил метод Math.abs(x) - чтоб было положительное число
+function getRandomNumber(a, b) {
 
-function getRandomNumber(min, max) {
+  let max = Math.max(a, b);
+  let min = Math.min(a, b);
+
+  if (min<0 || max<0) {
+    throw Error ('Диапазон может быть только положительный, включая ноль');
+  }
+
   min = Math.ceil(min);
   max = Math.floor(max);
-  if (max > min) {
-    return Math.abs(Math.floor(Math.random() * (max - min + 1)) + min); //Максимум и минимум включаются
-  }  {
-    return 'warning'; //если передать значение «до» меньшее, чем значение «от», или равное ему;
-  }
+
+  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
 }
 
-//console.log (getRandomNumber(10, 20));
+//console.log (getRandomNumber(5, 10));
 
 //Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
-// тот же вопрос
 
-function getRandomArbitrary(min, max) {
-  if (max > min) {
-    return Math.abs(Math.random() * (max - min) + min); //Максимум и минимум включаются
-  }  {
-    return 'warning'; //если передать значение «до» меньшее, чем значение «от», или равное ему;
+function getRandomArbitrary(a, b) {
+  let max = Math.max(a, b);
+  let min = Math.min(a, b);
+
+  if (min<0 || max<0) {
+    throw Error ('Диапазон может быть только положительный, включая ноль');
   }
+
+  return Math.random() * (max - min) + min; //Максимум и минимум включаются
 }
 
-//console.log (getRandomArbitrary(10, 20));
+//console.log (getRandomArbitrary(1.1, 2));
 
 
 
