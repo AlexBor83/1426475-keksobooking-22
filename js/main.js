@@ -32,10 +32,6 @@ function getRandomArbitrary(a, b) {
   return Math.random() * (max - min) + min; //Максимум и минимум включаются
 }
 
-function getRandom() {
-  return Math.abs(Math.random());
-}
-
 const avatarNumber ='0' + getRandomNumber(1, 8)
 
 const types = ['palace', 'flat', 'house', 'bungalow'];
@@ -52,12 +48,23 @@ const photos = [
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
+const latitudeRandom = getRandomArbitrary(35.7, 35.65).toFixed(5);  // Добавил toFixed(5) еще чтоб было 5 знаков после заптой как в диапозоне
+const longitudeRandom = getRandomArbitrary(139.7, 139.8).toFixed(5); // Добавил toFixed(5) еще чтоб было 5 знаков после заптой как в диапозоне
+
+//Случайный индекс массива
+const getIndexArray = function(array) {
+  const indexArray = getRandomNumber(0, array.length - 1);
+  return array[indexArray];
+};
+
 
 //author, объект — описывает автора. Содержит одно поле:
 
-const author = {
+const createAuthor = () => {
   //avatar, строка — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это случайное число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д.
-  avatar: 'img/avatars/user'+avatarNumber+'.png',
+  const randomAvatar = 'img/avatars/user'+avatarNumber+'.png';
+
+  return randomAvatar;
 };
 
 //console.log(author)
@@ -70,23 +77,26 @@ const createOffer = () => {
   //title, строка — заголовок предложения. Придумайте самостоятельно.+
   const titleRoom = 'лучшее жилье';
 
+  //address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.x}}, {{location.y}}.
+  const randomaddress = `${latitudeRandom}, ${longitudeRandom}`;
+
   //price, число — стоимость. Любое положительное число.++
-  const randomPrice = Math.trunc(getRandom()*1000);
+  const randomPrice = Math.trunc(getRandomArbitrary(0, 1)*1000);
 
   //type, строка — одно из четырёх фиксированных значений: palace, flat, house или bungalow.++
-  const indexType = getRandomNumber(0, types.length - 1);
+  const randomType = getIndexArray(types);
 
   //rooms, число — количество комнат. Любое положительное число++.
-  const randomRoom = getRandom().toFixed(1) * 10; //Сделал не любое а в приделах разумного число комнат не может быть дробным
+  const randomRoom = getRandomArbitrary(0, 1).toFixed(1) * 10; //Сделал не любое а в приделах разумного число комнат не может быть дробным
 
   //guests, число — количество гостей, которое можно разместить. Любое положительное число.++
-  const randomGuest = getRandom().toFixed(1) * 10; //Сделал не любое а в приделах разумного число людей не может быть дробным
+  const randomGuest = getRandomArbitrary(0, 1).toFixed(1) * 10; //Сделал не любое а в приделах разумного число людей не может быть дробным
 
   // checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-  const indexCheckin = getRandomNumber(0, checkins.length - 1);
+  const randomCheckin = getIndexArray(checkins);
 
   // checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-  const indexcheckout = getRandomNumber(0, checkouts.length - 1);
+  const randomcheckout = getIndexArray(checkouts);
 
   // features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner.
   //Значения не должны повторяться - yt gjkexbkjcmcl.
@@ -104,36 +114,40 @@ const createOffer = () => {
   //x, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000
   //y, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000
 
-  const getLocation = {
-    latitude: getRandomArbitrary(35.7, 35.65).toFixed(5), // Добавил toFixed(5) еще чтоб было 5 знаков после заптой как в диапозоне
-
-    longitude: getRandomArbitrary(139.7, 139.8).toFixed(5),  // Добавил toFixed(5) еще чтоб было 5 знаков после заптой как в диапозоне
+  const randomLocation = {
+    latitude: latitudeRandom,
+    longitude: longitudeRandom,
   };
 
-  //address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.x}}, {{location.y}}.
-  const randomaddress = getLocation;
 
   return {
     title: titleRoom,
     address: randomaddress,
     price: randomPrice,
-    type: types[indexType],
+    type: randomType,
     rooms: randomRoom,
     guests: randomGuest,
-    checkin: checkins[indexCheckin],
-    checkout: checkouts[indexcheckout],
+    checkin: randomCheckin,
+    checkout: randomcheckout,
     description: descriptionRoom,
     features: randomFeatures,
     photos: randomPhoto,
-    location: getLocation,
+    location: randomLocation,
   };
 };
 
-const offer = createOffer()
+const createObject = () => {
 
-//console.log(offer);
+  return {
+    author: createAuthor(),
+    offer: createOffer(),
+  }
+};
 
 
+const objects = new Array(10).fill('').map(() => createObject());
+
+console.log(objects);
 
 
 
