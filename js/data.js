@@ -40,7 +40,7 @@ const createOffer = () => {
   return {
     title: 'лучшее жилье',
     address: Object.values(randomLocation).join(', '),
-    price: Math.trunc(getRandomArbitrary(0, 1)*1000),
+    price: Math.trunc(getRandomArbitrary(0, 1)*10000),
     type: getElementArray(types),
     rooms: getRandomArbitrary(0, 1).toFixed(1) * 10,
     guests: getRandomArbitrary(0, 1).toFixed(1) * 10,
@@ -68,6 +68,6 @@ const createArray = (elementArray) => {
   return objects;
 };
 
-createArray(10);
+//createArray(10);
 
-console.log(createArray(10));
+export {createAuthor, createOffer, createObject, createArray};
