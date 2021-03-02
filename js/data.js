@@ -16,7 +16,9 @@ const createAuthor = () => {
   const avatarNumber ='0' + getRandomNumber(1, 8);
   const randomAvatar = 'img/avatars/user'+avatarNumber+'.png';
 
-  return randomAvatar;
+  return {
+    avatar: randomAvatar,
+  };
 };
 
 //offer, объект — содержит информацию об объявлении. Состоит из полей:
