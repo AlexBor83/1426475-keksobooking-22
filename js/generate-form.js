@@ -12,7 +12,7 @@ const popupTemplate = document.querySelector('#card')
   .querySelector('.popup');
 popupTemplate.querySelector('.popup__features').innerHTML = '';
 const templatePhoto = popupTemplate.querySelector('.popup__photo');
-popupTemplate.querySelector('.popup__photos').innerHTML = '';
+popupTemplate.querySelector('.popup__photos')
 
 const kind = objectData.offer.type;
 const  getKind = (kind) => {
