@@ -32,8 +32,8 @@ const createOffer = () => {
     const longitudeRandom = getRandomArbitrary(139.7, 139.8).toFixed(5);
 
     return {
-      x: latitudeRandom,
-      y: longitudeRandom,
+      x: Number(latitudeRandom),
+      y: Number(longitudeRandom),
     };
   };
 
