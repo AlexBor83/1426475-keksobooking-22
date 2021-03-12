@@ -15,3 +15,4 @@ const mapFilters = document.querySelectorAll('.map__filter');
 mapFilters.forEach((filter) => {
   filter.disabled=true;
 });
+
