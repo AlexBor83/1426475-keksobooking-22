@@ -43,20 +43,27 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
 
-console.log(quantityRoom.options[0]);
-console.log(quantityGuest.options[2]);
+quantityRoom.addEventListener('change', () => {
+  quantityGuest.value = quantityGuest.options[2].value;
+  const options = Array.from(quantityGuest.options);
+  options.forEach((option) => {
+    option.disabled = true;
+  });
+  quantityGuest.options[2].disabled = false;
 
 
+  if (quantityRoom.value === '2') {
+    quantityGuest.options[1].disabled = false;
+  } else if (quantityRoom.value === '3') {
+    quantityGuest.options[1].disabled = false;
+    quantityGuest.options[0].disabled = false;
+  } else if (quantityRoom.value === '100') {
+    quantityGuest.options[2].disabled = true;
+    quantityGuest.options[3].disabled = false;
+    quantityGuest.value = quantityGuest.options[3].value;
+  }
+});
 
-// quantityRoom.addEventListener('change', (evt) => {
-//   if (evt.target.value === quantityRoom.options[0]) {
-//     quantityGuest.value = quantityGuest.options[2];
-
-//   }
-// })
-
-// let selecteds = Array.from(quantityGuest.options).
-// console.log(selecteds)
 
 
 
