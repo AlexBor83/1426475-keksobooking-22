@@ -50,6 +50,7 @@ const activationMap = () =>{
     },
   );
   mainMarker.addTo(map);
+  addressForm.value = '35.6895, 139.69171';
 
   mainMarker.on('move', (evt) =>{
     const points = evt.target.getLatLng();
