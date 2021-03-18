@@ -5,11 +5,9 @@ import {createCart} from './generate-form.js';
 import {activationPage} from './page.js';
 
 const popups = createArray(10);
-console.log(popups)
-console.dir(popups[0].offer.address)
 
 const addressForm = document.querySelector('#address');
-addressForm.disabled=true;
+addressForm.readOnly=true;
 
 //Активация карты
 const activationMap = () =>{
@@ -58,9 +56,6 @@ const activationMap = () =>{
     const lng = points.lng.toFixed(5);
 
     addressForm.value = `${lat}, ${lng}`;
-
-    console.log(Object.values(evt.target.getLatLng()));
-
   });
 
   popups.forEach((popup) =>{
@@ -84,7 +79,7 @@ const activationMap = () =>{
   });
 };
 
-activationMap()
+activationMap();
 
 
 
