@@ -3,10 +3,8 @@ import {createArray} from './data.js';
 
 const data = createArray (10);
 const objectData = data[0];
-//console.log(objectData)
 
-
-const objMapCanvas = document.querySelector('#map-canvas');
+//const objMapCanvas = document.querySelector('#map-canvas');
 const popupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -72,7 +70,7 @@ const createCart = (object) =>{
   return popupElement;
 }
 
-const cart = createCart(objectData);
+createCart(objectData);
 export {createCart};
 
 /*
