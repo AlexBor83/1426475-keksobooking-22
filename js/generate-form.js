@@ -2,6 +2,7 @@ import {getDeclOfNum} from './util.js';
 import {createArray} from './data.js';
 
 const data = createArray (10);
+console.log(data)
 const objectData = data[0];
 
 //const objMapCanvas = document.querySelector('#map-canvas');
