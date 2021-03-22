@@ -1,3 +1,4 @@
+const ALERT_SHOW_TIME = 10000;
 
 //Получение случайного целого числа в заданном интервале, включительно
 const getRandomNumber = (a, b) => {
@@ -42,8 +43,6 @@ function getDeclOfNum(n, textForms) {
   return textForms[2];
 }
 
-const ALERT_SHOW_TIME = 10000;
-
 const showAlert = (message) => {
 
   const alertContainer = document.createElement('div');
@@ -64,8 +63,12 @@ const showAlert = (message) => {
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
-}
+};
+
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
 
 
-export {getRandomNumber, getRandomArbitrary, getElementArray, getDeclOfNum, showAlert};
+export {getRandomNumber, getRandomArbitrary, getElementArray, getDeclOfNum, showAlert, isEscEvent};
 

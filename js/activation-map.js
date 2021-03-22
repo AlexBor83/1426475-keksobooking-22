@@ -59,9 +59,11 @@ const activationMap = () =>{
           draggable: true,
           icon: mainIcon,
         },
+
       );
       mainMarker.addTo(map);
-      addressForm.value = '35.6895, 139.69171';
+      //addressForm.value = '35.6895, 139.69171';
+      addressForm.value = `${mainMarker.lat}, ${mainMarker.lng}`;
 
       mainMarker.on('move', (evt) =>{
         const points = evt.target.getLatLng();
@@ -94,7 +96,6 @@ const activationMap = () =>{
     })
     .catch((err) => {
       showAlert('Ошибка в полученbи данных, попробуйте снова');
-      console.error(err);
     });
 
 
