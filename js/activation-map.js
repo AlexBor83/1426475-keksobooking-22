@@ -5,11 +5,11 @@ import {activationPage} from './page.js';
 import {showAlert} from './util.js';
 import {get} from './server.js'
 
-// const popups = createArray(10);
-// console.log(popups)
-
 const addressForm = document.querySelector('#address');
 addressForm.readOnly=true;
+
+//Создание карты
+const map = L.map('map-canvas')
 
 //Создание главного маркера
 const mainIcon = L.icon({
@@ -27,23 +27,48 @@ const mainMarker = L.marker(
     draggable: true,
     icon: mainIcon,
   },
-
 );
+
+//Создание маркера
+const normalIcon = L.icon({
+  iconUrl: '../img/pin.svg',
+  iconSize: [30, 20],
+  iconAnchor: [15, 20],
+});
+
+const renderPin = (obj) => {
+  L.marker(
+    {
+      lat: obj.location.lat,
+      lng: obj.location.lng,
+    },
+    {
+      icon: normalIcon,
+    },
+  )
+    .addTo(map)
+    .bindPopup(createCart(obj));
+};
+
+const onSuccessGet = (serverDatas) => {
+
+  serverDatas.forEach(renderPin);
+};
+
+const onErrorGet = () => {
+  showAlert('Ошибка в получении данных, попробуйте снова')
+};
 
 //Активация карты
 const activationMap = () =>{
   //Активация страницы
   activationPage ();
 
-  //Создание карты и добавление главного маркера
-  const map = L.map('map-canvas')
-    // .on('load', () => {
-    //   console.log('Карта активирована')
-    // })
-    .setView({
-      lat: 35.6895,
-      lng: 139.69171,
-    }, 10);
+  //Центр карты
+  map.setView({
+    lat: 35.6895,
+    lng: 139.69171,
+  }, 10);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -63,34 +88,6 @@ const activationMap = () =>{
 
     addressForm.value = `${lat}, ${lng}`;
   });
-
-  //Создание меток объявлений с серера
-
-  const onSuccessGet = (serverDatas) => {
-    serverDatas.forEach((element) =>{
-      const normalIcon = L.icon({
-        iconUrl: '../img/pin.svg',
-        iconSize: [30, 20],
-        iconAnchor: [15, 20],
-      });
-
-      L.marker(
-        {
-          lat: element.location.lat,
-          lng: element.location.lng,
-        },
-        {
-          icon: normalIcon,
-        },
-      )
-        .addTo(map)
-        .bindPopup(createCart(element));
-    });
-  };
-
-  const onErrorGet = () => {
-    showAlert('Ошибка в получении данных, попробуйте снова')
-  };
 
   get (onSuccessGet, onErrorGet);
 };
