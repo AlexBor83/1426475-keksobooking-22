@@ -1,28 +1,74 @@
 /* global L:readonly */
 
-import {createArray} from './data.js';
 import {createCart} from './generate-form.js';
 import {activationPage} from './page.js';
-
-const popups = createArray(10);
+import {showAlert} from './util.js';
+import {get} from './server.js'
 
 const addressForm = document.querySelector('#address');
 addressForm.readOnly=true;
+
+//Создание карты
+const map = L.map('map-canvas')
+
+//Создание главного маркера
+const mainIcon = L.icon({
+  iconUrl: '../img/main-pin.svg',
+  iconSize: [48, 65],
+  iconAnchor: [24, 65],
+});
+
+const mainMarker = L.marker(
+  {
+    lat: 35.6895,
+    lng: 139.69171,
+  },
+  {
+    draggable: true,
+    icon: mainIcon,
+  },
+);
+
+//Создание маркера
+const normalIcon = L.icon({
+  iconUrl: '../img/pin.svg',
+  iconSize: [30, 20],
+  iconAnchor: [15, 20],
+});
+
+const renderPin = (obj) => {
+  L.marker(
+    {
+      lat: obj.location.lat,
+      lng: obj.location.lng,
+    },
+    {
+      icon: normalIcon,
+    },
+  )
+    .addTo(map)
+    .bindPopup(createCart(obj));
+};
+
+const onSuccessGet = (serverDatas) => {
+
+  serverDatas.forEach(renderPin);
+};
+
+const onErrorGet = () => {
+  showAlert('Ошибка в получении данных, попробуйте снова')
+};
 
 //Активация карты
 const activationMap = () =>{
   //Активация страницы
   activationPage ();
 
-  //Создание карты и маркера
-  const map = L.map('map-canvas')
-    .on('load', () => {
-      console.log('Карта активирована')
-    })
-    .setView({
-      lat: 35.6895,
-      lng: 139.69171,
-    }, 10);
+  //Центр карты
+  map.setView({
+    lat: 35.6895,
+    lng: 139.69171,
+  }, 10);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -31,24 +77,9 @@ const activationMap = () =>{
     },
   ).addTo(map);
 
-  const mainIcon = L.icon({
-    iconUrl: '../img/main-pin.svg',
-    iconSize: [48, 65],
-    iconAnchor: [24, 65],
-  });
-
-  const mainMarker = L.marker(
-    {
-      lat: 35.6895,
-      lng: 139.69171,
-    },
-    {
-      draggable: true,
-      icon: mainIcon,
-    },
-  );
   mainMarker.addTo(map);
-  addressForm.value = '35.6895, 139.69171';
+
+  addressForm.value = `${mainMarker.getLatLng().lat}, ${mainMarker.getLatLng().lng}`;
 
   mainMarker.on('move', (evt) =>{
     const points = evt.target.getLatLng();
@@ -58,57 +89,9 @@ const activationMap = () =>{
     addressForm.value = `${lat}, ${lng}`;
   });
 
-  popups.forEach((popup) =>{
-    const normalIcon = L.icon({
-      iconUrl: '../img/pin.svg',
-      iconSize: [30, 20],
-      iconAnchor: [15, 20],
-    });
-
-    L.marker(
-      {
-        lat: popup.offer.location.x,
-        lng: popup.offer.location.y,
-      },
-      {
-        icon: normalIcon,
-      },
-    )
-      .addTo(map)
-      .bindPopup(createCart(popup));
-  });
+  get (onSuccessGet, onErrorGet);
 };
 
 activationMap();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// L.marker(
-//   {
-//     lat: 35.6895,
-//     lng: 139.69171,
-//   },
-
-//   {icon: icon})
-//   .addTo(map);
-
-// const addres = new Array(1).fill(popupsAddress[9])
-// console.dir(addres)
-
-// L.marker([addres]).addTo(map);
-
-
-
-
+export{activationMap, mainMarker};
 

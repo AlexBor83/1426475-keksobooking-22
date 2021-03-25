@@ -72,4 +72,4 @@ const createArray = (elementArray) => {
 
 //createArray(10);
 
-export {createAuthor, createOffer, createObject, createArray};
+export {createObject, createArray};

@@ -1,10 +1,5 @@
 import {getDeclOfNum} from './util.js';
-import {createArray} from './data.js';
 
-const data = createArray (10);
-const objectData = data[0];
-
-//const objMapCanvas = document.querySelector('#map-canvas');
 const popupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -13,7 +8,7 @@ popupTemplate.querySelector('.popup__features').innerHTML = '';
 const templatePhoto = popupTemplate.querySelector('.popup__photo');
 popupTemplate.querySelector('.popup__photos').innerHTML = '';
 
-const kind = objectData.offer.type;
+
 const  getKind = (kind) => {
   switch (kind) {
     case 'flat':
@@ -57,7 +52,7 @@ const createCart = (object) =>{
   popupElement.querySelector('.popup__title').textContent = object.offer.title;
   popupElement.querySelector('.popup__text--address').textContent = object.offer.address;
   popupElement.querySelector('.popup__text--price').textContent = object.offer.price + ' ₽/ночь';
-  popupElement.querySelector('.popup__type').textContent = getKind(kind);
+  popupElement.querySelector('.popup__type').textContent = getKind(object.offer.type);
   popupElement.querySelector('.popup__text--capacity').textContent = object.offer.rooms + ' ' +
     (getDeclOfNum(object.offer.rooms, ['комната', 'комнаты', 'комнат']))  + ', '+ object.offer.guests + ' ' +
     (getDeclOfNum(object.offer.guests, ['гость', 'гостя', 'гостей']));
@@ -70,17 +65,9 @@ const createCart = (object) =>{
   return popupElement;
 }
 
-createCart(objectData);
 export {createCart};
 
-/*
-const generateForm = (obj) => {
 
-  objMapCanvas.appendChild(obj);
-};
-
-generateForm (cart);
-*/
 
 
 
