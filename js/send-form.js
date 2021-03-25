@@ -13,6 +13,7 @@ const formError = formTemplateError.querySelector('.error');
 const formErrorButton = formTemplateError.querySelector('.error__button');
 
 const onPopupSuccessEscKeydown = (evt) => {
+
   if (isEscEvent(evt)) {
     evt.preventDefault();
     formSuccess.classList.add('hidden');
@@ -38,7 +39,7 @@ const clearInputs = () => {
 };
 
 const onSuccess = () => {
-  formSuccess.classList.remove('hidden')
+  formSuccess.classList.remove('hidden');
   main.addEventListener ('click', () => {
     formSuccess.classList.add('hidden');
   });
@@ -47,6 +48,10 @@ const onSuccess = () => {
   clearInputs();
 
   mainMarker.setLatLng(TOKIO_LAT_LNG);
+
+  if (formSuccess.classList.contains('hidden')) {
+    document.removeEventListener('keydown', onPopupSuccessEscKeydown);
+  }
 };
 
 const onError = () => {
@@ -58,10 +63,10 @@ const onError = () => {
   document.addEventListener('keydown', onPopupErrorEscKeydown);
 };
 
+document.removeEventListener('keydown', onPopupErrorEscKeydown);
+
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   send(formData, onSuccess, onError);
-  document.removeEventListener('keydown', onPopupSuccessEscKeydown);
-  document.removeEventListener('keydown', onPopupErrorEscKeydown);
 });
