@@ -3,43 +3,54 @@ import {updatePin} from './activation-map.js';
 const form = document.querySelector('.map__filters');
 const houseType =  form.querySelector('#housing-type');
 const housePrice = form.querySelector('#housing-price');
-const housRoom = form.querySelector('#housing-rooms');
-const housGuest = form.querySelector('#housing-guests');
+const houseRoom = form.querySelector('#housing-rooms');
+const houseGuest = form.querySelector('#housing-guests');
 
 
-const cheackType = (obj) => {
+const  getPrice = (element) => {
+  if (element >= 10000 && element <= 50000) {
+    return 'middle';
+  } else if (element <10000) {
+    return 'low';
+  } else {
+    return 'high';
+  }
+};
+
+const checkType = (obj) => {
   if (houseType.value === 'any') {
     return true;
   }
   return houseType.value === obj.offer.type;
 };
 
-const cheackPrice = (obj) => {
+const checkPrice = (obj) => {
   if (housePrice.value === 'any') {
     return true;
   }
-  return housePrice.value === obj.offer.price;
+  return housePrice.value ===getPrice(obj.offer.price);
 };
 
-const cheackRoom = (obj) => {
-  if (housRoom.value === 'any') {
+const checkRoom = (obj) => {
+  if (houseRoom.value === 'any') {
     return true;
   }
-  return housRoom.value === obj.offer.rooms;
+  return houseRoom.value === String(obj.offer.rooms);
 };
 
-const cheackGuest = (obj) => {
-  if (housGuest.value === 'any') {
+const checkGuest = (obj) => {
+  if (houseGuest.value === 'any') {
     return true;
   }
-  return housGuest.value === obj.offer.guests;
+  return houseGuest.value === String(obj.offer.guests);
 }
 
-const cheackFeatures = (obj) => {
-  const cheacks = Array.from(form.querySelectorAll('input[name="features"]:checked'));
+const checkFeatures = (obj) => {
+  const checks = Array.from(form.querySelectorAll('input[name="features"]:checked'));
 
-  return cheacks.every ((element) => {
-    obj.offer.features.includes(element.value);
+  return checks.every ((element) => {
+
+    return obj.offer.features.includes(element.value);
   });
 }
 
@@ -49,7 +60,7 @@ const applyAll = (arr) => {
   for (let i = 0; i< arr.length; i++) {
     const item = arr[i];
 
-    if (cheackType(item) && cheackPrice(item) && cheackRoom(item) && cheackGuest(item) && cheackFeatures(item)) {
+    if (checkType(item) && checkPrice(item) && checkRoom(item) && checkGuest(item) && checkFeatures(item)) {
       filters.push(item);
     }
 

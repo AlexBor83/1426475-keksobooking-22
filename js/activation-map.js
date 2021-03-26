@@ -64,6 +64,7 @@ const updatePin = () => {
 const onSuccessGet = (serverDatas) => {
   datas = serverDatas;
   updatePin();
+  //console.log(datas)
 };
 
 const onErrorGet = () => {

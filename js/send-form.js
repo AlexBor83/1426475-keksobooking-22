@@ -23,7 +23,7 @@ const onPopupSuccessEscKeydown = (evt) => {
 const onPopupErrorEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    formError.classList.add('hidden');
+    closeErrorMassage();
   }
 };
 
@@ -32,6 +32,34 @@ main.appendChild(formTemplateSuccess);
 formSuccess.classList.add('hidden');
 formError.classList.add('hidden');
 
+const openSuccessMassage = () => {
+  formSuccess.classList.remove('hidden');
+  main.addEventListener ('click', () => {
+    closeSuccessMassage();
+  });
+  document.addEventListener('keydown', onPopupSuccessEscKeydown);
+}
+
+const closeSuccessMassage = () => {
+  formSuccess.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupSuccessEscKeydown);
+};
+
+const openErrorMassage = () => {
+  formError.classList.remove('hidden');
+  formErrorButton.addEventListener('click', () => {
+    closeErrorMassage();
+  });
+  document.addEventListener('keydown', onPopupErrorEscKeydown);
+};
+
+const closeErrorMassage = () => {
+  formError.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupErrorEscKeydown);
+};
+
+
+
 const clearInputs = () => {
   inputs.forEach((item) =>{
     item.value = '';
@@ -39,31 +67,14 @@ const clearInputs = () => {
 };
 
 const onSuccess = () => {
-  formSuccess.classList.remove('hidden');
-  main.addEventListener ('click', () => {
-    formSuccess.classList.add('hidden');
-  });
-
-  document.addEventListener('keydown', onPopupSuccessEscKeydown);
+  openSuccessMassage();
   clearInputs();
-
   mainMarker.setLatLng(TOKIO_LAT_LNG);
-
-  if (formSuccess.classList.contains('hidden')) {
-    document.removeEventListener('keydown', onPopupSuccessEscKeydown);
-  }
 };
 
 const onError = () => {
-  formError.classList.remove('hidden');
-  formErrorButton.addEventListener('click', () => {
-    formError.classList.add('hidden');
-  });
-
-  document.addEventListener('keydown', onPopupErrorEscKeydown);
+  openErrorMassage();
 };
-
-document.removeEventListener('keydown', onPopupErrorEscKeydown);
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
