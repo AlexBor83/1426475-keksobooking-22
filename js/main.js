@@ -7,5 +7,6 @@ import './activation-map.js';
 import './page.js';
 import './send-form.js';
 import './server.js';
+import './filter.js';
 
 

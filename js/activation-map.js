@@ -3,7 +3,9 @@
 import {createCart} from './generate-form.js';
 import {activationPage} from './page.js';
 import {showAlert} from './util.js';
-import {get} from './server.js'
+import {get} from './server.js';
+import {applyAll} from './filter.js';
+
 
 const addressForm = document.querySelector('#address');
 addressForm.readOnly=true;
@@ -30,6 +32,8 @@ const mainMarker = L.marker(
 );
 
 //Создание маркера
+const pinsGroup = L.layerGroup();
+
 const normalIcon = L.icon({
   iconUrl: '../img/pin.svg',
   iconSize: [30, 20],
@@ -46,13 +50,21 @@ const renderPin = (obj) => {
       icon: normalIcon,
     },
   )
-    .addTo(map)
+    .addTo(pinsGroup)
     .bindPopup(createCart(obj));
 };
 
-const onSuccessGet = (serverDatas) => {
+let datas =[];
+const updatePin = () => {
+  pinsGroup.clearLayers()
+  const filterDatas = applyAll(datas)
+  filterDatas.forEach(renderPin);
+}
 
-  serverDatas.forEach(renderPin);
+const onSuccessGet = (serverDatas) => {
+  datas = serverDatas;
+  updatePin();
+  //console.log(datas)
 };
 
 const onErrorGet = () => {
@@ -78,6 +90,7 @@ const activationMap = () =>{
   ).addTo(map);
 
   mainMarker.addTo(map);
+  pinsGroup.addTo(map);
 
   addressForm.value = `${mainMarker.getLatLng().lat}, ${mainMarker.getLatLng().lng}`;
 
@@ -93,5 +106,5 @@ const activationMap = () =>{
 };
 
 activationMap();
-export{activationMap, mainMarker};
+export{activationMap, mainMarker, updatePin};
 
