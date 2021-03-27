@@ -20,7 +20,8 @@ const deactivationPage = () => {
 };
 
 //Страница неактивна
-deactivationPage()
+
+deactivationPage();
 
 const activationPage = () => {
   form.classList.remove('ad-form--disabled');

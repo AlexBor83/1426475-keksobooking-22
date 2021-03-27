@@ -1,22 +1,23 @@
 import {isEscEvent} from './util.js';
 import {send} from './server.js';
-import {mainMarker} from './activation-map.js'
+import {mainMarker} from './activation-map.js';
+import {resetFilter} from './filter.js';
 
 const TOKIO_LAT_LNG = [35.6895, 139.69171];
 const main = document.querySelector('main');
-const form = document.querySelector('.ad-form');
-const inputs = form.querySelectorAll('input');
+const form = main.querySelector('.ad-form');
 const formTemplateSuccess = document.querySelector('#success').content;
 const formSuccess = formTemplateSuccess.querySelector('.success');
 const formTemplateError = document.querySelector('#error').content;
 const formError = formTemplateError.querySelector('.error');
 const formErrorButton = formTemplateError.querySelector('.error__button');
+const formResetButton = form.querySelector('.ad-form__reset');
 
 const onPopupSuccessEscKeydown = (evt) => {
 
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    formSuccess.classList.add('hidden');
+    closeSuccessMassage();
   }
 };
 
@@ -38,7 +39,7 @@ const openSuccessMassage = () => {
     closeSuccessMassage();
   });
   document.addEventListener('keydown', onPopupSuccessEscKeydown);
-}
+};
 
 const closeSuccessMassage = () => {
   formSuccess.classList.add('hidden');
@@ -58,18 +59,19 @@ const closeErrorMassage = () => {
   document.removeEventListener('keydown', onPopupErrorEscKeydown);
 };
 
-
-
-const clearInputs = () => {
-  inputs.forEach((item) =>{
-    item.value = '';
+const resetform = () => {
+  const formFeatures = Array.from(form.querySelectorAll('.feature__checkbox'));
+  formFeatures.forEach((item) => {
+    item.checked = false;
   });
+  form.reset();
+  mainMarker.setLatLng(TOKIO_LAT_LNG);
 };
 
 const onSuccess = () => {
   openSuccessMassage();
-  clearInputs();
-  mainMarker.setLatLng(TOKIO_LAT_LNG);
+  resetFilter();
+  resetform();
 };
 
 const onError = () => {
@@ -80,4 +82,10 @@ form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   send(formData, onSuccess, onError);
+});
+
+formResetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetFilter();
+  resetform();
 });
