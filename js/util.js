@@ -1,4 +1,4 @@
-const ALERT_SHOW_TIME = 10000;
+const ALERT_SHOW_TIME = 5000;
 
 //Получение случайного целого числа в заданном интервале, включительно
 const getRandomNumber = (a, b) => {

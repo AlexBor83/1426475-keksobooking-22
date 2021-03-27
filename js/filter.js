@@ -58,10 +58,6 @@ const checkFeatures = (obj) => {
 
 const resetFilter = () => {
   form.reset();
-  const checksfeatures = Array.from(form.querySelectorAll('input[name="features"]'));
-  checksfeatures.forEach((item) => {
-    item.checked = false;
-  });
 };
 
 const applyAll = (arr) => {

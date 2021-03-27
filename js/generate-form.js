@@ -49,16 +49,31 @@ const createPhotos = (photos) => {
 
 const createCart = (object) =>{
   const popupElement = popupTemplate.cloneNode(true);
-  popupElement.querySelector('.popup__title').textContent = object.offer.title;
+  if (object.offer.title) {
+    popupElement.querySelector('.popup__title').textContent = object.offer.title;
+  } else {
+    popupElement.querySelector('.popup__title').disabled = true;
+  }
+
   popupElement.querySelector('.popup__text--address').textContent = object.offer.address;
   popupElement.querySelector('.popup__text--price').textContent = object.offer.price + ' ₽/ночь';
   popupElement.querySelector('.popup__type').textContent = getKind(object.offer.type);
   popupElement.querySelector('.popup__text--capacity').textContent = object.offer.rooms + ' ' +
     (getDeclOfNum(object.offer.rooms, ['комната', 'комнаты', 'комнат']))  + ', '+ object.offer.guests + ' ' +
     (getDeclOfNum(object.offer.guests, ['гость', 'гостя', 'гостей']));
-  popupElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + object.offer.checkin + ', ' + 'выезд до ' + object.offer.checkout ;
-  popupElement.querySelector('.popup__features').appendChild(createFeatures(object.offer.features));
-  popupElement.querySelector('.popup__description').textContent = object.offer.description;
+  popupElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + object.offer.checkin + ', ' +
+  'выезд до ' +  object.offer.checkout;
+  if (object.offer.features.length > 0) {
+    popupElement.querySelector('.popup__features').appendChild(createFeatures(object.offer.features));
+  } else {
+    popupElement.querySelector('.popup__features').disabled = true;
+  }
+
+  if (object.offer.description) {
+    popupElement.querySelector('.popup__description').textContent = object.offer.description;
+  } else {
+    popupElement.querySelector('.popup__description').disabled = true;
+  }
   popupElement.querySelector('.popup__photos').appendChild(createPhotos(object.offer.photos));
   popupElement.querySelector('.popup__avatar').src = object.author.avatar;
 

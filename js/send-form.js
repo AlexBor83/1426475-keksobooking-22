@@ -29,15 +29,20 @@ const onPopupErrorEscKeydown = (evt) => {
 };
 
 main.appendChild(formTemplateError);
+formErrorButton.addEventListener('click', () => {
+  closeErrorMassage();
+});
 main.appendChild(formTemplateSuccess);
+formSuccess.addEventListener ('click', () => {
+  closeSuccessMassage();
+});
+
 formSuccess.classList.add('hidden');
 formError.classList.add('hidden');
 
 const openSuccessMassage = () => {
   formSuccess.classList.remove('hidden');
-  main.addEventListener ('click', () => {
-    closeSuccessMassage();
-  });
+
   document.addEventListener('keydown', onPopupSuccessEscKeydown);
 };
 
@@ -48,9 +53,6 @@ const closeSuccessMassage = () => {
 
 const openErrorMassage = () => {
   formError.classList.remove('hidden');
-  formErrorButton.addEventListener('click', () => {
-    closeErrorMassage();
-  });
   document.addEventListener('keydown', onPopupErrorEscKeydown);
 };
 
@@ -60,10 +62,6 @@ const closeErrorMassage = () => {
 };
 
 const resetform = () => {
-  const formFeatures = Array.from(form.querySelectorAll('.feature__checkbox'));
-  formFeatures.forEach((item) => {
-    item.checked = false;
-  });
   form.reset();
   mainMarker.setLatLng(TOKIO_LAT_LNG);
 };
