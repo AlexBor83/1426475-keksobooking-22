@@ -55,18 +55,17 @@ const renderPin = (obj) => {
     .bindPopup(createCart(obj));
 };
 
-let datas =[];
+let data =[];
 
 const updatePin = () => {
   pinsGroup.clearLayers();
-  const filterDatas = applyAll(datas);
+  const filterDatas = applyAll(data);
   filterDatas.forEach(renderPin);
 };
 
 const onSuccessGet = (serverDatas) => {
-  datas = serverDatas;
+  data = serverDatas;
   updatePin();
-  //console.log(datas)
 };
 
 
@@ -99,9 +98,9 @@ const activationMap = () =>{
   addressForm.value = `${mainMarker.getLatLng().lat}, ${mainMarker.getLatLng().lng}`;
 
   mainMarker.on('move', (evt) =>{
-    const points = evt.target.getLatLng();
-    const lat = points.lat.toFixed(5);
-    const lng = points.lng.toFixed(5);
+    const point = evt.target.getLatLng();
+    const lat = point.lat.toFixed(5);
+    const lng = point.lng.toFixed(5);
 
     addressForm.value = `${lat}, ${lng}`;
   });

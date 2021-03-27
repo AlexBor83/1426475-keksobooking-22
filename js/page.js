@@ -36,7 +36,4 @@ const activationPage = () => {
   });
 };
 
-//Страница активна
-//activationPage();
-
 export {activationPage};

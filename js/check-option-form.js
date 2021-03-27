@@ -1,3 +1,8 @@
+const MAX_PRICE = 1000000;
+const MAX_PRICE_BUNGALOW = 0;
+const MAX_PRICE_FLAT = 1000;
+const MAX_PRICE_HOUSE = 5000;
+const MAX_PRICE_PALASE = 10000;
 
 const typeObject = document.querySelector('#type');
 const priceObject = document.querySelector('#price');
@@ -5,7 +10,6 @@ const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const quantityRoom = document.querySelector('#room_number');
 const quantityGuest = document.querySelector('#capacity');
-const MAX_PRICE = 1000000;
 
 priceObject.addEventListener('input', ()=>{
   const valuePrice = priceObject.value;
@@ -23,13 +27,13 @@ typeObject.addEventListener('change', () => {
   let price = 0;
 
   if (typeObject.value === 'bungalow') {
-    price = 0;
+    price = MAX_PRICE_BUNGALOW;
   } else if (typeObject.value === 'flat') {
-    price = 1000;
+    price = MAX_PRICE_FLAT;
   } else if (typeObject.value === 'house') {
-    price = 5000;
+    price = MAX_PRICE_HOUSE;
   } else if (typeObject.value === 'palace') {
-    price = 10000;}
+    price = MAX_PRICE_PALASE;}
 
   priceObject.min = price;
   priceObject.placeholder = price;
