@@ -6,14 +6,12 @@ import {resetFilter} from './filter.js';
 const TOKIO_LAT_LNG = [35.6895, 139.69171];
 const main = document.querySelector('main');
 const form = main.querySelector('.ad-form');
-const inputs = form.querySelectorAll('input');
 const formTemplateSuccess = document.querySelector('#success').content;
 const formSuccess = formTemplateSuccess.querySelector('.success');
 const formTemplateError = document.querySelector('#error').content;
 const formError = formTemplateError.querySelector('.error');
 const formErrorButton = formTemplateError.querySelector('.error__button');
 const formResetButton = form.querySelector('.ad-form__reset');
-console.log(inputs)
 
 const onPopupSuccessEscKeydown = (evt) => {
 
@@ -66,16 +64,8 @@ const resetform = () => {
   formFeatures.forEach((item) => {
     item.checked = false;
   });
-
-  clearInputs();
+  form.reset();
   mainMarker.setLatLng(TOKIO_LAT_LNG);
-};
-
-
-const clearInputs = () => {
-  inputs.forEach((item) =>{
-    item.value = '';
-  });
 };
 
 const onSuccess = () => {

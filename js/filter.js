@@ -57,17 +57,12 @@ const checkFeatures = (obj) => {
 };
 
 const resetFilter = () => {
-  houseType.value = 'any';
-  housePrice.value = 'any';
-  houseRoom.value = 'any';
-  houseGuest.value = 'any';
+  form.reset();
   const checksfeatures = Array.from(form.querySelectorAll('input[name="features"]'));
   checksfeatures.forEach((item) => {
     item.checked = false;
   });
-}
-
-console.log(form.querySelectorAll('input[name="features"]'))
+};
 
 const applyAll = (arr) => {
   const filters = [];
@@ -87,7 +82,7 @@ const applyAll = (arr) => {
   return filters;
 };
 
-const debounceUpdatePin = _.debounce(() => updatePin(), 1000);
+const debounceUpdatePin = _.debounce(() => updatePin(), RERENDER_DELAY);
 
 form.addEventListener('change', ()=> {
   debounceUpdatePin();

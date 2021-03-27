@@ -58,8 +58,8 @@ const renderPin = (obj) => {
 let datas =[];
 
 const updatePin = () => {
-  pinsGroup.clearLayers()
-  const filterDatas = applyAll(datas)
+  pinsGroup.clearLayers();
+  const filterDatas = applyAll(datas);
   filterDatas.forEach(renderPin);
 };
 
