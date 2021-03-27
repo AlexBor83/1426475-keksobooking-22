@@ -33,7 +33,7 @@ const createFeatures = (features) => {
   });
 
   return fragment;
-}
+};
 
 const createPhotos = (photos) => {
   const fragment = document.createDocumentFragment();
@@ -45,7 +45,7 @@ const createPhotos = (photos) => {
   });
 
   return fragment;
-}
+};
 
 const createCart = (object) =>{
   const popupElement = popupTemplate.cloneNode(true);
@@ -63,7 +63,7 @@ const createCart = (object) =>{
   popupElement.querySelector('.popup__avatar').src = object.author.avatar;
 
   return popupElement;
-}
+};
 
 export {createCart};
 

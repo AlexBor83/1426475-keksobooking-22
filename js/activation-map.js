@@ -8,10 +8,11 @@ import {applyAll} from './filter.js';
 
 
 const addressForm = document.querySelector('#address');
+
 addressForm.readOnly=true;
 
 //Создание карты
-const map = L.map('map-canvas')
+const map = L.map('map-canvas');
 
 //Создание главного маркера
 const mainIcon = L.icon({
@@ -55,11 +56,12 @@ const renderPin = (obj) => {
 };
 
 let datas =[];
+
 const updatePin = () => {
   pinsGroup.clearLayers()
   const filterDatas = applyAll(datas)
   filterDatas.forEach(renderPin);
-}
+};
 
 const onSuccessGet = (serverDatas) => {
   datas = serverDatas;
@@ -67,8 +69,9 @@ const onSuccessGet = (serverDatas) => {
   //console.log(datas)
 };
 
+
 const onErrorGet = () => {
-  showAlert('Ошибка в получении данных, попробуйте снова')
+  showAlert('Ошибка в получении данных, попробуйте снова');
 };
 
 //Активация карты
@@ -90,6 +93,7 @@ const activationMap = () =>{
   ).addTo(map);
 
   mainMarker.addTo(map);
+
   pinsGroup.addTo(map);
 
   addressForm.value = `${mainMarker.getLatLng().lat}, ${mainMarker.getLatLng().lng}`;

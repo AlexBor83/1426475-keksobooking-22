@@ -1,5 +1,7 @@
+/* global _:readonly */
 import {updatePin} from './activation-map.js';
 
+const RERENDER_DELAY = 500;
 const form = document.querySelector('.map__filters');
 const houseType =  form.querySelector('#housing-type');
 const housePrice = form.querySelector('#housing-price');
@@ -43,7 +45,7 @@ const checkGuest = (obj) => {
     return true;
   }
   return houseGuest.value === String(obj.offer.guests);
-}
+};
 
 const checkFeatures = (obj) => {
   const checks = Array.from(form.querySelectorAll('input[name="features"]:checked'));
@@ -52,7 +54,20 @@ const checkFeatures = (obj) => {
 
     return obj.offer.features.includes(element.value);
   });
+};
+
+const resetFilter = () => {
+  houseType.value = 'any';
+  housePrice.value = 'any';
+  houseRoom.value = 'any';
+  houseGuest.value = 'any';
+  const checksfeatures = Array.from(form.querySelectorAll('input[name="features"]'));
+  checksfeatures.forEach((item) => {
+    item.checked = false;
+  });
 }
+
+console.log(form.querySelectorAll('input[name="features"]'))
 
 const applyAll = (arr) => {
   const filters = [];
@@ -72,9 +87,11 @@ const applyAll = (arr) => {
   return filters;
 };
 
+const debounceUpdatePin = _.debounce(() => updatePin(), 1000);
+
 form.addEventListener('change', ()=> {
-  updatePin();
+  debounceUpdatePin();
 });
 
-export {applyAll}
+export {applyAll, resetFilter};
 
