@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 import {send} from './server.js';
-import {mainMarker, } from './activation-map.js';
+import {mainMarker} from './activation-map.js';
 import {resetFilter} from './filter.js';
 
 const TOKIO_LAT_LNG = [35.6895, 139.69171];
@@ -86,5 +86,4 @@ formResetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetFilter();
   resetform();
-  onSuccessGet()
 });

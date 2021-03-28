@@ -73,11 +73,14 @@ const onErrorGet = () => {
   showAlert('Ошибка в получении данных, попробуйте снова');
 };
 
-//Активация карты
-const activationMap = () =>{
-  //Активация страницы
-  activationPage ();
+//Активация карты 
 
+const activationMap = () =>{
+  
+  map.on('load', () => {
+    activationPage ();
+  })
+  
   //Центр карты
   map.setView({
     lat: 35.6895,
