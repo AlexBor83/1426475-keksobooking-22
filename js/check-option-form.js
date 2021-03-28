@@ -47,16 +47,15 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
 
-quantityGuest.options[2].value = quantityRoom.options[2]
 
-quantityRoom.addEventListener('change', () => {
+const checkQuantityGuestRoom = () => {
   quantityGuest.value = quantityGuest.options[2].value;
   const options = Array.from(quantityGuest.options);
+
   options.forEach((option) => {
     option.disabled = true;
   });
   quantityGuest.options[2].disabled = false;
-
 
   if (quantityRoom.value === '2') {
     quantityGuest.options[1].disabled = false;
@@ -68,6 +67,13 @@ quantityRoom.addEventListener('change', () => {
     quantityGuest.options[3].disabled = false;
     quantityGuest.value = quantityGuest.options[3].value;
   }
+};
+
+checkQuantityGuestRoom ();
+
+quantityRoom.addEventListener('change', () => {
+
+  checkQuantityGuestRoom ();
 });
 
 

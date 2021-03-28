@@ -6,7 +6,6 @@ import {showAlert} from './util.js';
 import {get} from './server.js';
 import {applyAll} from './filter.js';
 
-
 const addressForm = document.querySelector('#address');
 
 addressForm.readOnly=true;
@@ -73,14 +72,14 @@ const onErrorGet = () => {
   showAlert('Ошибка в получении данных, попробуйте снова');
 };
 
-//Активация карты 
+//Активация карты
 
 const activationMap = () =>{
-  
+
   map.on('load', () => {
     activationPage ();
-  })
-  
+  });
+
   //Центр карты
   map.setView({
     lat: 35.6895,

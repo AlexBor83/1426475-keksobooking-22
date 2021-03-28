@@ -56,8 +56,9 @@ const checkFeatures = (obj) => {
   });
 };
 
-const resetFilter = () => {
+const resetFilterMap = () => {
   form.reset();
+  updatePin();
 };
 
 const applyAll = (arr) => {
@@ -84,5 +85,5 @@ form.addEventListener('change', ()=> {
   debounceUpdatePin();
 });
 
-export {applyAll, resetFilter};
+export {applyAll, resetFilterMap};
 

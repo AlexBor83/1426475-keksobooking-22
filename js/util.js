@@ -1,4 +1,4 @@
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 10000;
 
 //Склонене слов в зависимости от числительных
 function getDeclOfNum(n, textForms) {
