@@ -47,6 +47,8 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
 
+quantityGuest.options[2].value = quantityRoom.options[2]
+
 quantityRoom.addEventListener('change', () => {
   quantityGuest.value = quantityGuest.options[2].value;
   const options = Array.from(quantityGuest.options);

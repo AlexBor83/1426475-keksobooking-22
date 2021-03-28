@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 import {send} from './server.js';
-import {mainMarker} from './activation-map.js';
+import {mainMarker, } from './activation-map.js';
 import {resetFilter} from './filter.js';
 
 const TOKIO_LAT_LNG = [35.6895, 139.69171];
@@ -14,7 +14,6 @@ const formErrorButton = formTemplateError.querySelector('.error__button');
 const formResetButton = form.querySelector('.ad-form__reset');
 
 const onPopupSuccessEscKeydown = (evt) => {
-
   if (isEscEvent(evt)) {
     evt.preventDefault();
     closeSuccessMassage();
@@ -29,11 +28,12 @@ const onPopupErrorEscKeydown = (evt) => {
 };
 
 main.appendChild(formTemplateError);
-formErrorButton.addEventListener('click', () => {
+formError.addEventListener('click', () => {
   closeErrorMassage();
 });
+
 main.appendChild(formTemplateSuccess);
-formSuccess.addEventListener ('click', () => {
+formSuccess.addEventListener('click', () => {
   closeSuccessMassage();
 });
 
@@ -86,4 +86,5 @@ formResetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetFilter();
   resetform();
+  onSuccessGet()
 });
