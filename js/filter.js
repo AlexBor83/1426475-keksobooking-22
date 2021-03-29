@@ -2,6 +2,8 @@
 import {updatePin} from './activation-map.js';
 
 const RERENDER_DELAY = 500;
+const PRICE_MIN_MIDDLE = 10000;
+const PRICE_MAX_MIDDLE = 50000;
 const form = document.querySelector('.map__filters');
 const houseType =  form.querySelector('#housing-type');
 const housePrice = form.querySelector('#housing-price');
@@ -10,9 +12,9 @@ const houseGuest = form.querySelector('#housing-guests');
 
 
 const  getPrice = (element) => {
-  if (element >= 10000 && element <= 50000) {
+  if (element >= PRICE_MIN_MIDDLE && element <= PRICE_MAX_MIDDLE) {
     return 'middle';
-  } else if (element <10000) {
+  } else if (element < PRICE_MIN_MIDDLE) {
     return 'low';
   } else {
     return 'high';

@@ -2,6 +2,7 @@ import {isEscEvent} from './util.js';
 import {send} from './server.js';
 import {mainMarker} from './activation-map.js';
 import {resetFilterMap} from './filter.js';
+import {checktypeObjectPrice} from './check-option-form.js';
 
 const TOKIO_LAT_LNG = [35.6895, 139.69171];
 const main = document.querySelector('main');
@@ -69,6 +70,8 @@ const onSuccess = () => {
   openSuccessMassage();
   resetFilterMap();
   resetform();
+  checktypeObjectPrice();
+
 };
 
 const onError = () => {
@@ -85,4 +88,5 @@ formResetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetFilterMap();
   resetform();
+  checktypeObjectPrice();
 });

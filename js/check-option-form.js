@@ -2,7 +2,7 @@ const MAX_PRICE = 1000000;
 const MAX_PRICE_BUNGALOW = 0;
 const MAX_PRICE_FLAT = 1000;
 const MAX_PRICE_HOUSE = 5000;
-const MAX_PRICE_PALASE = 10000;
+const MAX_PRICE_PALACE = 10000;
 
 const typeObject = document.querySelector('#type');
 const priceObject = document.querySelector('#price');
@@ -23,8 +23,8 @@ priceObject.addEventListener('input', ()=>{
   priceObject.reportValidity();
 });
 
-typeObject.addEventListener('change', () => {
-  let price = 0;
+const checktypeObjectPrice = () => {
+  let price;
 
   if (typeObject.value === 'bungalow') {
     price = MAX_PRICE_BUNGALOW;
@@ -33,10 +33,16 @@ typeObject.addEventListener('change', () => {
   } else if (typeObject.value === 'house') {
     price = MAX_PRICE_HOUSE;
   } else if (typeObject.value === 'palace') {
-    price = MAX_PRICE_PALASE;}
+    price = MAX_PRICE_PALACE;}
 
   priceObject.min = price;
   priceObject.placeholder = price;
+}
+
+//checktypeObjectPrice ();
+
+typeObject.addEventListener('change', () => {
+  checktypeObjectPrice ();
 });
 
 timeIn.addEventListener('change', () => {
@@ -75,6 +81,8 @@ quantityRoom.addEventListener('change', () => {
 
   checkQuantityGuestRoom ();
 });
+
+export {checktypeObjectPrice}
 
 
 
