@@ -37,7 +37,7 @@ const checktypeObjectPrice = () => {
 
   priceObject.min = price;
   priceObject.placeholder = price;
-}
+};
 
 //checktypeObjectPrice ();
 
@@ -82,7 +82,7 @@ quantityRoom.addEventListener('change', () => {
   checkQuantityGuestRoom ();
 });
 
-export {checktypeObjectPrice}
+export {checktypeObjectPrice};
 
 
 
